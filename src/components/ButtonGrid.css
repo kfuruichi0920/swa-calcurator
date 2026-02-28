@@ -1,0 +1,86 @@
+.button-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.button-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.button {
+  padding: 1.2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 8px;
+  border: 1px solid #d0d0d0;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.button:hover {
+  background-color: #e5e5e5;
+  border-color: #646cff;
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+.button-number {
+  background-color: #ffffff;
+}
+
+.button-operator {
+  background-color: #646cff;
+  color: white;
+  border-color: #646cff;
+}
+
+.button-operator:hover {
+  background-color: #535ac5;
+}
+
+.button-equals {
+  background-color: #4caf50;
+  color: white;
+  border-color: #4caf50;
+}
+
+.button-equals:hover {
+  background-color: #45a049;
+}
+
+.button-clear {
+  background-color: #ff6b6b;
+  color: white;
+  border-color: #ff6b6b;
+}
+
+.button-clear:hover {
+  background-color: #ff5252;
+}
+
+.button-memory {
+  background-color: #ffa726;
+  color: white;
+  border-color: #ffa726;
+}
+
+.button-memory:hover {
+  background-color: #fb8c00;
+}
+
+.button-empty {
+  visibility: hidden;
+}
+
+@media (max-width: 767px) {
+  .button {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}
