@@ -77,6 +77,11 @@ function App() {
             memory.clear();
             updateMemoryDisplay();
         }
+        else if (value === '00') {
+            calculator.input('0');
+            calculator.input('0');
+            setDisplay(calculator.getDisplay());
+        }
         else if (['+', '-', '*', '/'].includes(value)) {
             setExpression(display + ' ' + value + ' ');
             calculator.input(value);
