@@ -69,8 +69,8 @@ function App() {
             }
         }
         else if (value === 'MR') {
-            var value_1 = memory.recall();
-            calculator.input(value_1.toString());
+            var value_2 = memory.recall();
+            calculator.input(value_2.toString());
             setDisplay(calculator.getDisplay());
         }
         else if (value === 'MC') {
@@ -78,8 +78,8 @@ function App() {
             updateMemoryDisplay();
         }
         else if (/^\d+$/.test(value) && value.length > 1) {
-            for (var _i = 0, value_2 = value; _i < value_2.length; _i++) {
-                var digit = value_2[_i];
+            for (var _i = 0, value_1 = value; _i < value_1.length; _i++) {
+                var digit = value_1[_i];
                 calculator.input(digit);
             }
             setDisplay(calculator.getDisplay());
