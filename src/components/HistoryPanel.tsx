@@ -63,14 +63,16 @@ function HistoryPanel({
           <div className="history-empty">計算履歴はありません</div>
         ) : (
           entries.map((entry) => (
-            <div key={entry.id} className="history-entry">
-              <div
+              <div key={entry.id} className="history-entry">
+              <button
+                type="button"
                 className="history-content"
                 onClick={() => onEntryClick(entry.result)}
+                aria-label={`計算結果 ${entry.expression} = ${entry.result} を追加`}
               >
                 <div className="history-expression">{entry.expression}</div>
                 <div className="history-result">= {entry.result}</div>
-              </div>
+              </button>
               <button
                 className="history-delete"
                 onClick={() => onEntryDelete(entry.id)}

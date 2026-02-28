@@ -26,15 +26,22 @@ function App() {
     var updateHistoryDisplay = useCallback(function () {
         setHistoryEntries(history.getAll());
     }, [history]);
+    // マウント時にメモリ表示を初期化
+    useEffect(function () {
+        updateMemoryDisplay();
+    }, [updateMemoryDisplay]);
     // ボタンクリックハンドラ
     var handleButtonClick = useCallback(function (value) {
         if (value === '=') {
             var result = calculator.equals();
             setDisplay(result);
-            // 履歴に追加（式と結果）
-            if (expression) {
-                history.add("".concat(expression).concat(calculator.getDisplay()), parseFloat(result));
+            // 履歴に追加（エラー時はスキップ）
+            if (expression && result !== 'Error') {
+                history.add("".concat(expression).concat(result), parseFloat(result));
                 updateHistoryDisplay();
+                setExpression('');
+            }
+            else if (result === 'Error') {
                 setExpression('');
             }
         }
@@ -48,12 +55,18 @@ function App() {
             setExpression('');
         }
         else if (value === 'M+') {
-            memory.add(parseFloat(display));
-            updateMemoryDisplay();
+            // display がエラーでない場合のみメモリに追加
+            if (display !== 'Error') {
+                memory.add(parseFloat(display));
+                updateMemoryDisplay();
+            }
         }
         else if (value === 'M-') {
-            memory.subtract(parseFloat(display));
-            updateMemoryDisplay();
+            // display がエラーでない場合のみメモリから減算
+            if (display !== 'Error') {
+                memory.subtract(parseFloat(display));
+                updateMemoryDisplay();
+            }
         }
         else if (value === 'MR') {
             var value_1 = memory.recall();
