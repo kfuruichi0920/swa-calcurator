@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Calculator } from './core/Calculator';
 import { MemoryManager } from './core/MemoryManager';
 import { HistoryManager } from './core/HistoryManager';
+import ThemeSwitcher from './components/ThemeSwitcher';
 import Display from './components/Display';
 import ButtonGrid from './components/ButtonGrid';
 import MemoryPanel from './components/MemoryPanel';
@@ -17,6 +18,7 @@ function App() {
     var _c = useState([]), memoryValues = _c[0], setMemoryValues = _c[1];
     var _d = useState(0), currentMemorySlot = _d[0], setCurrentMemorySlot = _d[1];
     var _e = useState(history.getAll()), historyEntries = _e[0], setHistoryEntries = _e[1];
+    var _f = useState(function () { var _a; return (_a = localStorage.getItem('theme')) !== null && _a !== void 0 ? _a : 'system'; }), theme = _f[0], setTheme = _f[1];
     // メモリ値を更新
     var updateMemoryDisplay = useCallback(function () {
         setMemoryValues(memory.getAllValues());
@@ -30,6 +32,16 @@ function App() {
     useEffect(function () {
         updateMemoryDisplay();
     }, [updateMemoryDisplay]);
+    // テーマの管理
+    useEffect(function () {
+        if (theme === 'system') {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        else {
+            document.documentElement.setAttribute('data-theme', theme);
+        }
+        localStorage.setItem('theme', theme);
+    }, [theme]);
     // ボタンクリックハンドラ
     var handleButtonClick = useCallback(function (value) {
         if (value === '=') {
@@ -168,6 +180,6 @@ function App() {
         var text = history.exportToText();
         navigator.clipboard.writeText(text);
     }, [history]);
-    return (_jsxs("div", { className: "app", children: [_jsxs("header", { className: "app-header", children: [_jsx("h1", { children: "SWA Calculator" }), _jsxs("blockquote", { className: "quote", children: [_jsx("p", { children: "\"We can only see a short distance ahead, but we can see plenty there that needs to be done.\"" }), _jsx("footer", { children: "\u2014 Alan Turing\uFF08\u8A08\u7B97\u6A5F\u79D1\u5B66\u306E\u7236\uFF09" })] }), _jsx("p", { className: "subtitle", children: "Azure Static Web Apps \u96FB\u5353\u30A2\u30D7\u30EA\u30B1\u30FC\u30B7\u30E7\u30F3" })] }), _jsxs("div", { className: "calculator-container", children: [_jsxs("div", { className: "main-calculator", children: [_jsx(Display, { value: display, expression: expression }), _jsx(ButtonGrid, { onButtonClick: handleButtonClick })] }), _jsxs("div", { className: "side-panels", children: [_jsx(MemoryPanel, { values: memoryValues, currentSlot: currentMemorySlot, onSlotChange: handleMemorySlotChange }), _jsx(HistoryPanel, { entries: historyEntries, onEntryClick: handleHistoryClick, onEntryDelete: handleHistoryDelete, onClear: handleHistoryClear, onExport: handleHistoryExport, onCopy: handleHistoryCopy })] })] }), _jsx("footer", { className: "app-footer", children: _jsx("p", { children: "\u30AD\u30FC\u30DC\u30FC\u30C9\u64CD\u4F5C: \u6570\u5B57(0-9), \u6F14\u7B97\u5B50(+,-,*,/), Enter(=), Esc(C), Ctrl+Shift+Del(AC)" }) })] }));
+    return (_jsxs("div", { className: "app", children: [_jsxs("header", { className: "app-header", children: [_jsx("h1", { children: "SWA Calculator" }), _jsx(ThemeSwitcher, { theme: theme, onThemeChange: setTheme }), _jsxs("blockquote", { className: "quote", children: [_jsx("p", { children: "\"We can only see a short distance ahead, but we can see plenty there that needs to be done.\"" }), _jsx("footer", { children: "\u2014 Alan Turing\uFF08\u8A08\u7B97\u6A5F\u79D1\u5B66\u306E\u7236\uFF09" })] }), _jsx("p", { className: "subtitle", children: "Azure Static Web Apps \u96FB\u5353\u30A2\u30D7\u30EA\u30B1\u30FC\u30B7\u30E7\u30F3" })] }), _jsxs("div", { className: "calculator-container", children: [_jsxs("div", { className: "main-calculator", children: [_jsx(Display, { value: display, expression: expression }), _jsx(ButtonGrid, { onButtonClick: handleButtonClick })] }), _jsxs("div", { className: "side-panels", children: [_jsx(MemoryPanel, { values: memoryValues, currentSlot: currentMemorySlot, onSlotChange: handleMemorySlotChange }), _jsx(HistoryPanel, { entries: historyEntries, onEntryClick: handleHistoryClick, onEntryDelete: handleHistoryDelete, onClear: handleHistoryClear, onExport: handleHistoryExport, onCopy: handleHistoryCopy })] })] }), _jsx("footer", { className: "app-footer", children: _jsx("p", { children: "\u30AD\u30FC\u30DC\u30FC\u30C9\u64CD\u4F5C: \u6570\u5B57(0-9), \u6F14\u7B97\u5B50(+,-,*,/), Enter(=), Esc(C), Ctrl+Shift+Del(AC)" }) })] }));
 }
 export default App;

@@ -1,13 +1,13 @@
 .memory-panel {
-  background: white;
+  background: var(--color-bg-card);
   padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px var(--color-shadow);
 }
 
 .panel-title {
   margin-bottom: 1rem;
-  color: #333;
+  color: var(--color-text-strong);
   font-size: 1.2rem;
   border-bottom: 2px solid #646cff;
   padding-bottom: 0.5rem;
@@ -24,31 +24,31 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 1rem;
-  background: #f8f8f8;
-  border: 2px solid #e0e0e0;
+  background: var(--color-bg-surface);
+  border: 2px solid var(--color-border);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .memory-slot:hover {
-  background: #f0f0f0;
+  background: var(--color-bg-surface-hover);
   border-color: #646cff;
 }
 
 .memory-slot.active {
-  background: #e8f0fe;
+  background: var(--color-bg-memory-active);
   border-color: #646cff;
   font-weight: bold;
 }
 
 .slot-label {
-  color: #666;
+  color: var(--color-text-secondary);
   font-size: 0.9rem;
 }
 
 .slot-value {
-  color: #333;
+  color: var(--color-text-strong);
   font-weight: 600;
 }
 
