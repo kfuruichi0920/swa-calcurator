@@ -167,6 +167,10 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1>SWA Calculator</h1>
+        <blockquote className="quote">
+          <p>"We can only see a short distance ahead, but we can see plenty there that needs to be done."</p>
+          <footer>— Alan Turing（計算機科学の父）</footer>
+        </blockquote>
         <p className="subtitle">Azure Static Web Apps 電卓アプリケーション</p>
       </header>
       
