@@ -75,6 +75,11 @@ function App() {
     } else if (value === 'MC') {
       memory.clear()
       updateMemoryDisplay()
+    } else if (/^\d+$/.test(value) && value.length > 1) {
+      for (const digit of value) {
+        calculator.input(digit)
+      }
+      setDisplay(calculator.getDisplay())
     } else if (['+', '-', '*', '/'].includes(value)) {
       setExpression(display + ' ' + value + ' ')
       calculator.input(value)

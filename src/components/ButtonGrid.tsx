@@ -6,12 +6,12 @@ interface ButtonGridProps {
 
 function ButtonGrid({ onButtonClick }: ButtonGridProps) {
   const buttons = [
-    ['C', 'AC', 'M+', 'M-'],
-    ['7', '8', '9', '/'],
-    ['4', '5', '6', '*'],
-    ['1', '2', '3', '-'],
-    ['0', '.', '=', '+'],
-    ['MR', 'MC', '', ''],
+    ['MC', 'MR', 'M-', 'M+'],
+    ['C', 'AC', '', '/'],
+    ['7', '8', '9', '*'],
+    ['4', '5', '6', '-'],
+    ['1', '2', '3', '+'],
+    ['0', '00', '.', '='],
   ]
 
   const getButtonClass = (value: string): string => {

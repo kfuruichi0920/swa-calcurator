@@ -77,6 +77,13 @@ function App() {
             memory.clear();
             updateMemoryDisplay();
         }
+        else if (/^\d+$/.test(value) && value.length > 1) {
+            for (var _i = 0, value_2 = value; _i < value_2.length; _i++) {
+                var digit = value_2[_i];
+                calculator.input(digit);
+            }
+            setDisplay(calculator.getDisplay());
+        }
         else if (['+', '-', '*', '/'].includes(value)) {
             setExpression(display + ' ' + value + ' ');
             calculator.input(value);
