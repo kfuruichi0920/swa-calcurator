@@ -1,0 +1,36 @@
+.theme-switcher {
+  display: inline-flex;
+  gap: 0.25rem;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+.theme-button {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.theme-button:hover {
+  background: var(--color-bg-surface-hover);
+  border-color: transparent;
+  color: var(--color-text-primary);
+}
+
+.theme-button.active {
+  background: #646cff;
+  color: white;
+  border-color: #646cff;
+}
+
+.theme-button.active:hover {
+  background: #535ac5;
+}

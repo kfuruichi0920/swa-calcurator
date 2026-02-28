@@ -1,6 +1,6 @@
 .display-container {
-  background: #f8f8f8;
-  border: 2px solid #e0e0e0;
+  background: var(--color-bg-surface);
+  border: 2px solid var(--color-border);
   border-radius: 8px;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -13,7 +13,7 @@
 
 .display-expression {
   font-size: 0.9rem;
-  color: #888;
+  color: var(--color-text-muted);
   margin-bottom: 0.25rem;
   min-height: 1.2rem;
 }
@@ -21,7 +21,7 @@
 .display-value {
   font-size: 2rem;
   font-weight: bold;
-  color: #333;
+  color: var(--color-text-strong);
   word-break: break-all;
 }
 
