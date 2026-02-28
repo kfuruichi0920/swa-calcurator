@@ -19,9 +19,20 @@ function App() {
   const [memoryValues, setMemoryValues] = useState<number[]>([])
   const [currentMemorySlot, setCurrentMemorySlot] = useState(0)
   const [historyEntries, setHistoryEntries] = useState(history.getAll())
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem('theme') as Theme) ?? 'system'
-  )
+  const [theme, setTheme] = useState<Theme>(() => {
+    try {
+      const stored = localStorage.getItem('theme')
+      if (stored === 'system' || stored === 'light' || stored === 'dark') {
+        return stored
+      }
+      if (stored !== null) {
+        localStorage.removeItem('theme')
+      }
+    } catch (error) {
+      // localStorage access failed (e.g., private browsing mode), silently continue
+    }
+    return 'system'
+  })
 
   // メモリ値を更新
   const updateMemoryDisplay = useCallback(() => {
@@ -46,7 +57,11 @@ function App() {
     } else {
       document.documentElement.setAttribute('data-theme', theme)
     }
-    localStorage.setItem('theme', theme)
+    try {
+      localStorage.setItem('theme', theme)
+    } catch (error) {
+      // localStorage access failed (e.g., private browsing mode), silently continue without persistence
+    }
   }, [theme])
 
   // ボタンクリックハンドラ
