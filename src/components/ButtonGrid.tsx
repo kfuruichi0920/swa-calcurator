@@ -11,7 +11,7 @@ function ButtonGrid({ onButtonClick }: ButtonGridProps) {
     ['7', '8', '9', '*'],
     ['4', '5', '6', '-'],
     ['1', '2', '3', '+'],
-    ['0', '', '.', '='],
+    ['0', '00', '.', '='],
   ]
 
   const getButtonClass = (value: string): string => {
