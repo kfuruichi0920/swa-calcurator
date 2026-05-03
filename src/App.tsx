@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { Calculator } from './core/Calculator'
 import { MemoryManager } from './core/MemoryManager'
 import { HistoryManager } from './core/HistoryManager'
+import ThemeSwitcher, { type Theme } from './components/ThemeSwitcher'
 import Display from './components/Display'
 import ButtonGrid from './components/ButtonGrid'
 import MemoryPanel from './components/MemoryPanel'
@@ -18,6 +19,20 @@ function App() {
   const [memoryValues, setMemoryValues] = useState<number[]>(() => memory.getAllValues())
   const [currentMemorySlot, setCurrentMemorySlot] = useState(() => memory.getCurrentSlot())
   const [historyEntries, setHistoryEntries] = useState(history.getAll())
+  const [theme, setTheme] = useState<Theme>(() => {
+    try {
+      const stored = localStorage.getItem('theme')
+      if (stored === 'system' || stored === 'light' || stored === 'dark') {
+        return stored
+      }
+      if (stored !== null) {
+        localStorage.removeItem('theme')
+      }
+    } catch (error) {
+      // localStorage access failed (e.g., private browsing mode), silently continue
+    }
+    return 'system'
+  })
 
   // メモリ値を更新
   const updateMemoryDisplay = useCallback(() => {
@@ -167,6 +182,7 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1>SWA Calculator</h1>
+        <ThemeSwitcher theme={theme} onThemeChange={setTheme} />
         <blockquote className="quote">
           <p>"We can only see a short distance ahead, but we can see plenty there that needs to be done."</p>
           <footer>— Alan Turing（計算機科学の父）</footer>

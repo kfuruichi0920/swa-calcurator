@@ -15,14 +15,15 @@
   font-size: 1.2rem;
   font-weight: bold;
   border-radius: 8px;
-  border: 1px solid #d0d0d0;
-  background-color: #f5f5f5;
+  border: 1px solid var(--color-border-subtle);
+  background-color: var(--color-bg-surface-2);
+  color: var(--color-text-primary);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .button:hover {
-  background-color: #e5e5e5;
+  background-color: var(--color-bg-surface-hover);
   border-color: #646cff;
 }
 
@@ -31,7 +32,7 @@
 }
 
 .button-number {
-  background-color: #ffffff;
+  background-color: var(--color-bg-card);
 }
 
 .button-operator {

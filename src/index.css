@@ -3,13 +3,79 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color: #213547;
-  background-color: #f5f5f5;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* ライトテーマ (デフォルト) */
+  --color-bg-page: #f5f5f5;
+  --color-bg-card: #ffffff;
+  --color-bg-surface: #f8f8f8;
+  --color-bg-surface-2: #f5f5f5;
+  --color-bg-surface-hover: #e5e5e5;
+  --color-bg-surface-active: #d0d0d0;
+  --color-bg-memory-active: #e8f0fe;
+  --color-text-primary: #213547;
+  --color-text-strong: #333333;
+  --color-text-secondary: #666666;
+  --color-text-muted: #888888;
+  --color-text-placeholder: #999999;
+  --color-border: #e0e0e0;
+  --color-border-subtle: #d0d0d0;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-scrollbar-track: #f1f1f1;
+  --color-scrollbar-thumb: #888888;
+  --color-scrollbar-thumb-hover: #555555;
+
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-page);
+}
+
+/* ダークテーマ */
+[data-theme="dark"] {
+  --color-bg-page: #1a1a2e;
+  --color-bg-card: #16213e;
+  --color-bg-surface: #0f3460;
+  --color-bg-surface-2: #1e2a45;
+  --color-bg-surface-hover: #253356;
+  --color-bg-surface-active: #2d3d66;
+  --color-bg-memory-active: #1a2e5a;
+  --color-text-primary: #e0e0e0;
+  --color-text-strong: #f0f0f0;
+  --color-text-secondary: #aaaaaa;
+  --color-text-muted: #777777;
+  --color-text-placeholder: #666666;
+  --color-border: #2a3a5c;
+  --color-border-subtle: #243050;
+  --color-shadow: rgba(0, 0, 0, 0.4);
+  --color-scrollbar-track: #1e2a45;
+  --color-scrollbar-thumb: #4a5a7c;
+  --color-scrollbar-thumb-hover: #6a7a9c;
+}
+
+/* システムテーマ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    --color-bg-page: #1a1a2e;
+    --color-bg-card: #16213e;
+    --color-bg-surface: #0f3460;
+    --color-bg-surface-2: #1e2a45;
+    --color-bg-surface-hover: #253356;
+    --color-bg-surface-active: #2d3d66;
+    --color-bg-memory-active: #1a2e5a;
+    --color-text-primary: #e0e0e0;
+    --color-text-strong: #f0f0f0;
+    --color-text-secondary: #aaaaaa;
+    --color-text-muted: #777777;
+    --color-text-placeholder: #666666;
+    --color-border: #2a3a5c;
+    --color-border-subtle: #243050;
+    --color-shadow: rgba(0, 0, 0, 0.4);
+    --color-scrollbar-track: #1e2a45;
+    --color-scrollbar-thumb: #4a5a7c;
+    --color-scrollbar-thumb-hover: #6a7a9c;
+  }
 }
 
 * {
@@ -40,14 +106,14 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #f0f0f0;
+  background-color: var(--color-bg-surface-2);
   cursor: pointer;
   transition: border-color 0.25s, background-color 0.25s;
 }
 
 button:hover {
   border-color: #646cff;
-  background-color: #e0e0e0;
+  background-color: var(--color-bg-surface-hover);
 }
 
 button:focus,
@@ -56,5 +122,5 @@ button:focus-visible {
 }
 
 button:active {
-  background-color: #d0d0d0;
+  background-color: var(--color-bg-surface-active);
 }
