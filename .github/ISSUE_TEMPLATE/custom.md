@@ -1,6 +1,6 @@
 ---
 name: Custom issue template
-about: Describe this issue template's purpose here.
+about: Report a bug, ask a question, or request help with the calculator app.
 title: ''
 labels: bug, good first issue, question
 assignees: ''
