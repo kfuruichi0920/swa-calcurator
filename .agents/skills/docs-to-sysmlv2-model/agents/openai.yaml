@@ -1,0 +1,4 @@
+interface:
+  display_name: "Docs to SysMLv2"
+  short_description: "Convert requirements and design docs into SysMLv2 models"
+  default_prompt: "Read requirements and design documents and produce SysMLv2 modeling artifacts."
