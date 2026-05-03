@@ -99,7 +99,7 @@ export class HistoryManager {
         ...entry,
         timestamp: new Date(entry.timestamp),
       }))
-    } catch (error) {
+    } catch {
       throw new Error('Invalid JSON format')
     }
   }

@@ -14,8 +14,8 @@ function App() {
     var history = useState(function () { return new HistoryManager(); })[0];
     var _a = useState('0'), display = _a[0], setDisplay = _a[1];
     var _b = useState(''), expression = _b[0], setExpression = _b[1];
-    var _c = useState([]), memoryValues = _c[0], setMemoryValues = _c[1];
-    var _d = useState(0), currentMemorySlot = _d[0], setCurrentMemorySlot = _d[1];
+    var _c = useState(function () { return memory.getAllValues(); }), memoryValues = _c[0], setMemoryValues = _c[1];
+    var _d = useState(function () { return memory.getCurrentSlot(); }), currentMemorySlot = _d[0], setCurrentMemorySlot = _d[1];
     var _e = useState(history.getAll()), historyEntries = _e[0], setHistoryEntries = _e[1];
     // メモリ値を更新
     var updateMemoryDisplay = useCallback(function () {
@@ -26,10 +26,6 @@ function App() {
     var updateHistoryDisplay = useCallback(function () {
         setHistoryEntries(history.getAll());
     }, [history]);
-    // マウント時にメモリ表示を初期化
-    useEffect(function () {
-        updateMemoryDisplay();
-    }, [updateMemoryDisplay]);
     // ボタンクリックハンドラ
     var handleButtonClick = useCallback(function (value) {
         if (value === '=') {

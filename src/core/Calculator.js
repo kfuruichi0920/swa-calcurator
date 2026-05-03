@@ -104,7 +104,7 @@ var Calculator = /** @class */ (function () {
             this.isNewNumber = true;
             return this.display;
         }
-        catch (error) {
+        catch (_a) {
             return 'Error';
         }
     };

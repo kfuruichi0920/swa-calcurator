@@ -96,7 +96,7 @@ var HistoryManager = /** @class */ (function () {
             // timestampを復元
             this.entries = data.map(function (entry) { return (__assign(__assign({}, entry), { timestamp: new Date(entry.timestamp) })); });
         }
-        catch (error) {
+        catch (_a) {
             throw new Error('Invalid JSON format');
         }
     };

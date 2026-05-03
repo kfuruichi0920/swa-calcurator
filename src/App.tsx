@@ -15,8 +15,8 @@ function App() {
   
   const [display, setDisplay] = useState('0')
   const [expression, setExpression] = useState('')
-  const [memoryValues, setMemoryValues] = useState<number[]>([])
-  const [currentMemorySlot, setCurrentMemorySlot] = useState(0)
+  const [memoryValues, setMemoryValues] = useState<number[]>(() => memory.getAllValues())
+  const [currentMemorySlot, setCurrentMemorySlot] = useState(() => memory.getCurrentSlot())
   const [historyEntries, setHistoryEntries] = useState(history.getAll())
 
   // メモリ値を更新
@@ -29,11 +29,6 @@ function App() {
   const updateHistoryDisplay = useCallback(() => {
     setHistoryEntries(history.getAll())
   }, [history])
-
-  // マウント時にメモリ表示を初期化
-  useEffect(() => {
-    updateMemoryDisplay()
-  }, [updateMemoryDisplay])
 
   // ボタンクリックハンドラ
   const handleButtonClick = useCallback((value: string) => {

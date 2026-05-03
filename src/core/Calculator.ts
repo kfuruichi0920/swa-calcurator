@@ -114,7 +114,7 @@ export class Calculator {
       this.operator = null
       this.isNewNumber = true
       return this.display
-    } catch (error) {
+    } catch {
       return 'Error'
     }
   }
