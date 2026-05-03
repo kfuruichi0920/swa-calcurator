@@ -28,7 +28,7 @@ function App() {
                 localStorage.removeItem('theme');
             }
         }
-        catch (error) {
+        catch {
             // localStorage access failed (e.g., private browsing mode), silently continue
         }
         return 'system';
