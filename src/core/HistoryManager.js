@@ -80,13 +80,16 @@ var HistoryManager = /** @class */ (function () {
      * JSON形式でインポート
      */
     HistoryManager.prototype.importFromJSON = function (json) {
-        var _this = this;
         try {
             var data = JSON.parse(json);
             if (!Array.isArray(data)) {
                 throw new Error('Invalid JSON format');
             }
-            var entries = data.map(function (entry) { return _this.parseHistoryEntry(entry); });
+            var entries = [];
+            for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
+                var entry = data_1[_i];
+                entries.push(this.parseHistoryEntry(entry));
+            }
             this.entries = entries.slice(-HistoryManager.MAX_HISTORY_COUNT);
         }
         catch (_a) {

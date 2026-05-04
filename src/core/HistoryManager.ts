@@ -98,7 +98,12 @@ export class HistoryManager {
         throw new Error('Invalid JSON format')
       }
 
-      const entries = data.map((entry) => this.parseHistoryEntry(entry))
+      const entries: HistoryEntry[] = []
+
+      for (const entry of data) {
+        entries.push(this.parseHistoryEntry(entry))
+      }
+
       this.entries = entries.slice(-HistoryManager.MAX_HISTORY_COUNT)
     } catch {
       throw new Error('Invalid JSON format')
