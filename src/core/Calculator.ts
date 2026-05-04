@@ -44,6 +44,12 @@ export class Calculator {
    * 小数点入力を処理
    */
   private handleDecimal(): void {
+    if (this.isNewNumber) {
+      this.display = '0.'
+      this.isNewNumber = false
+      return
+    }
+
     if (!this.display.includes('.')) {
       this.display += '.'
       this.isNewNumber = false
@@ -115,7 +121,11 @@ export class Calculator {
       this.isNewNumber = true
       return this.display
     } catch {
-      return 'Error'
+      this.display = 'Error'
+      this.accumulator = 0
+      this.operator = null
+      this.isNewNumber = true
+      return this.display
     }
   }
 

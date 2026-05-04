@@ -1,14 +1,3 @@
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
         if (ar || !(i in from)) {
@@ -91,14 +80,49 @@ var HistoryManager = /** @class */ (function () {
      * JSON形式でインポート
      */
     HistoryManager.prototype.importFromJSON = function (json) {
+        var _this = this;
         try {
             var data = JSON.parse(json);
-            // timestampを復元
-            this.entries = data.map(function (entry) { return (__assign(__assign({}, entry), { timestamp: new Date(entry.timestamp) })); });
+            if (!Array.isArray(data)) {
+                throw new Error('Invalid JSON format');
+            }
+            var entries = data.map(function (entry) { return _this.parseHistoryEntry(entry); });
+            this.entries = entries.slice(-HistoryManager.MAX_HISTORY_COUNT);
         }
         catch (_a) {
             throw new Error('Invalid JSON format');
         }
+    };
+    /**
+     * インポートデータを履歴エントリに変換
+     */
+    HistoryManager.prototype.parseHistoryEntry = function (entry) {
+        var candidate = entry;
+        if (typeof entry !== 'object' ||
+            entry === null ||
+            typeof candidate.id !== 'string' ||
+            typeof candidate.expression !== 'string' ||
+            typeof candidate.result !== 'number' ||
+            Number.isNaN(candidate.result) ||
+            !('timestamp' in candidate)) {
+            throw new Error('Invalid JSON format');
+        }
+        var rawTimestamp = candidate.timestamp;
+        if (!(typeof rawTimestamp === 'string' ||
+            typeof rawTimestamp === 'number' ||
+            rawTimestamp instanceof Date)) {
+            throw new Error('Invalid JSON format');
+        }
+        var timestamp = new Date(rawTimestamp);
+        if (Number.isNaN(timestamp.getTime())) {
+            throw new Error('Invalid JSON format');
+        }
+        return {
+            id: candidate.id,
+            expression: candidate.expression,
+            result: candidate.result,
+            timestamp: timestamp,
+        };
     };
     /**
      * ユニークなIDを生成

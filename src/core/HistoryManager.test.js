@@ -148,5 +148,31 @@ describe('HistoryManager - 計算履歴機能', function () {
                 history.importFromJSON('invalid json');
             }).toThrow();
         });
+        it('1000件を超える履歴をインポートしても最新1000件に制限される', function () {
+            var data = Array.from({ length: 1001 }, function (_, index) { return ({
+                id: "test-".concat(index),
+                expression: "".concat(index, " + ").concat(index),
+                result: index * 2,
+                timestamp: new Date("2024-01-01T00:00:".concat(String(index % 60).padStart(2, '0'), ".000Z")),
+            }); });
+            history.importFromJSON(JSON.stringify(data));
+            var entries = history.getAll();
+            expect(entries).toHaveLength(1000);
+            expect(entries[0].id).toBe('test-1');
+            expect(entries[999].id).toBe('test-1000');
+        });
+        it('不正な履歴データはエラーをスローする', function () {
+            var invalidData = [
+                {
+                    id: 'test-1',
+                    expression: '1 + 2',
+                    result: '3',
+                    timestamp: new Date(),
+                },
+            ];
+            expect(function () {
+                history.importFromJSON(JSON.stringify(invalidData));
+            }).toThrow('Invalid JSON format');
+        });
     });
 });
