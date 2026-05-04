@@ -51,6 +51,10 @@ export declare class HistoryManager {
      */
     importFromJSON(json: string): void;
     /**
+     * インポートデータを履歴エントリに変換
+     */
+    private parseHistoryEntry;
+    /**
      * ユニークなIDを生成
      */
     private generateId;

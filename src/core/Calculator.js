@@ -47,6 +47,11 @@ var Calculator = /** @class */ (function () {
      * 小数点入力を処理
      */
     Calculator.prototype.handleDecimal = function () {
+        if (this.isNewNumber) {
+            this.display = '0.';
+            this.isNewNumber = false;
+            return;
+        }
         if (!this.display.includes('.')) {
             this.display += '.';
             this.isNewNumber = false;
@@ -105,7 +110,11 @@ var Calculator = /** @class */ (function () {
             return this.display;
         }
         catch (_a) {
-            return 'Error';
+            this.display = 'Error';
+            this.accumulator = 0;
+            this.operator = null;
+            this.isNewNumber = true;
+            return this.display;
         }
     };
     /**

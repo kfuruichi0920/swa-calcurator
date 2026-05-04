@@ -92,15 +92,65 @@ export class HistoryManager {
    */
   importFromJSON(json: string): void {
     try {
-      const data = JSON.parse(json) as HistoryEntry[]
-      
-      // timestampを復元
-      this.entries = data.map((entry) => ({
-        ...entry,
-        timestamp: new Date(entry.timestamp),
-      }))
+      const data = JSON.parse(json) as unknown
+
+      if (!Array.isArray(data)) {
+        throw new Error('Invalid JSON format')
+      }
+
+      const entries: HistoryEntry[] = []
+
+      for (const entry of data) {
+        entries.push(this.parseHistoryEntry(entry))
+      }
+
+      this.entries = entries.slice(-HistoryManager.MAX_HISTORY_COUNT)
     } catch {
       throw new Error('Invalid JSON format')
+    }
+  }
+
+  /**
+   * インポートデータを履歴エントリに変換
+   */
+  private parseHistoryEntry(entry: unknown): HistoryEntry {
+    const candidate = entry as Record<string, unknown>
+
+    if (
+      typeof entry !== 'object' ||
+      entry === null ||
+      typeof candidate.id !== 'string' ||
+      typeof candidate.expression !== 'string' ||
+      typeof candidate.result !== 'number' ||
+      Number.isNaN(candidate.result) ||
+      !('timestamp' in candidate)
+    ) {
+      throw new Error('Invalid JSON format')
+    }
+
+    const rawTimestamp = candidate.timestamp
+
+    if (
+      !(
+        typeof rawTimestamp === 'string' ||
+        typeof rawTimestamp === 'number' ||
+        rawTimestamp instanceof Date
+      )
+    ) {
+      throw new Error('Invalid JSON format')
+    }
+
+    const timestamp = new Date(rawTimestamp)
+
+    if (Number.isNaN(timestamp.getTime())) {
+      throw new Error('Invalid JSON format')
+    }
+
+    return {
+      id: candidate.id,
+      expression: candidate.expression,
+      result: candidate.result,
+      timestamp,
     }
   }
 

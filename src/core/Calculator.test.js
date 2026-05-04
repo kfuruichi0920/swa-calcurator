@@ -105,6 +105,14 @@ describe('Calculator - 四則演算', function () {
             var result = calculator.equals();
             expect(result).toBe('3');
         });
+        it('演算子の直後に小数点を入力すると 0 から始まる', function () {
+            calculator.input('1');
+            calculator.input('+');
+            calculator.input('.');
+            calculator.input('5');
+            var result = calculator.equals();
+            expect(result).toBe('1.5');
+        });
     });
     describe('表示機能', function () {
         it('数字入力後の表示は入力値である', function () {
@@ -150,6 +158,17 @@ describe('Calculator - 四則演算', function () {
             calculator.input('4');
             var result = calculator.equals();
             expect(result).toBe('10');
+        });
+        it('0除算で Error の後は新しい入力を受け付ける', function () {
+            calculator.input('1');
+            calculator.input('/');
+            calculator.input('0');
+            expect(calculator.equals()).toBe('Error');
+            expect(calculator.getDisplay()).toBe('Error');
+            calculator.input('2');
+            calculator.input('+');
+            calculator.input('3');
+            expect(calculator.equals()).toBe('5');
         });
     });
 });
