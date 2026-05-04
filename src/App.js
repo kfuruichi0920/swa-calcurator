@@ -33,6 +33,21 @@ function App() {
         }
         return 'system';
     }), theme = _f[0], setTheme = _f[1];
+    useEffect(function () {
+        var root = document.documentElement;
+        if (theme === 'system') {
+            root.removeAttribute('data-theme');
+        }
+        else {
+            root.setAttribute('data-theme', theme);
+        }
+        try {
+            localStorage.setItem('theme', theme);
+        }
+        catch (_a) {
+            // localStorage access failed (e.g., private browsing mode), silently continue
+        }
+    }, [theme]);
     // メモリ値を更新
     var updateMemoryDisplay = useCallback(function () {
         setMemoryValues(memory.getAllValues());

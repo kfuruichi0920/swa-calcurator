@@ -11,6 +11,7 @@ on:
         options:
           - build-deploy
           - lint-only
+          - e2e-only
 
 jobs:
   lint_job:
@@ -57,6 +58,12 @@ jobs:
       
       - name: Run tests
         run: npm test -- --run
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E tests
+        run: npm run test:e2e
       
       - name: Build And Deploy
         id: builddeploy
@@ -71,3 +78,27 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "dist" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
+
+  e2e_job:
+    if: github.event.inputs.run_mode == 'e2e-only'
+    runs-on: ubuntu-latest
+    name: E2E Test Job
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+          lfs: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.19.0'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E tests
+        run: npm run test:e2e

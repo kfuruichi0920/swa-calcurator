@@ -34,6 +34,22 @@ function App() {
     return 'system'
   })
 
+  useEffect(() => {
+    const root = document.documentElement
+
+    if (theme === 'system') {
+      root.removeAttribute('data-theme')
+    } else {
+      root.setAttribute('data-theme', theme)
+    }
+
+    try {
+      localStorage.setItem('theme', theme)
+    } catch {
+      // localStorage access failed (e.g., private browsing mode), silently continue
+    }
+  }, [theme])
+
   // メモリ値を更新
   const updateMemoryDisplay = useCallback(() => {
     setMemoryValues(memory.getAllValues())
