@@ -61,6 +61,9 @@ var Calculator = /** @class */ (function () {
      * 演算子入力を処理
      */
     Calculator.prototype.handleOperator = function (nextOperator) {
+        if (this.display === 'Error') {
+            return;
+        }
         var inputValue = parseFloat(this.display);
         if (this.operator !== null && !this.isNewNumber) {
             // 前の演算を計算

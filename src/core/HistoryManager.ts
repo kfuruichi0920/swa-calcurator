@@ -104,7 +104,7 @@ export class HistoryManager {
         entries.push(this.parseHistoryEntry(entry))
       }
 
-      this.entries = entries.slice(-HistoryManager.MAX_HISTORY_COUNT)
+      this.entries = entries.slice(0, HistoryManager.MAX_HISTORY_COUNT)
     } catch {
       throw new Error('Invalid JSON format')
     }

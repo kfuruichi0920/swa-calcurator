@@ -60,6 +60,10 @@ export class Calculator {
    * 演算子入力を処理
    */
   private handleOperator(nextOperator: string): void {
+    if (this.display === 'Error') {
+      return
+    }
+
     const inputValue = parseFloat(this.display)
 
     if (this.operator !== null && !this.isNewNumber) {

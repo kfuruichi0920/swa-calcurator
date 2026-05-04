@@ -170,5 +170,17 @@ describe('Calculator - 四則演算', function () {
             calculator.input('3');
             expect(calculator.equals()).toBe('5');
         });
+        it('Error 表示中の演算子入力は無視される', function () {
+            calculator.input('1');
+            calculator.input('/');
+            calculator.input('0');
+            expect(calculator.equals()).toBe('Error');
+            calculator.input('+');
+            expect(calculator.getDisplay()).toBe('Error');
+            calculator.input('2');
+            calculator.input('+');
+            calculator.input('3');
+            expect(calculator.equals()).toBe('5');
+        });
     });
 });
